@@ -1,0 +1,897 @@
+{
+  "records": {
+    "data": [
+      {
+        "strikePrice": 21200.0,
+        "CE": {
+          "openInterest": 2.0
+        },
+        "PE": {
+          "openInterest": 145338.0
+        }
+      },
+      {
+        "strikePrice": 21250.0,
+        "CE": {
+          "openInterest": 1.0
+        },
+        "PE": {
+          "openInterest": 6766.0
+        }
+      },
+      {
+        "strikePrice": 21300.0,
+        "CE": {
+          "openInterest": 1.0
+        },
+        "PE": {
+          "openInterest": 21723.0
+        }
+      },
+      {
+        "strikePrice": 21350.0,
+        "CE": {
+          "openInterest": 1.0
+        },
+        "PE": {
+          "openInterest": 1231.0
+        }
+      },
+      {
+        "strikePrice": 21400.0,
+        "CE": {
+          "openInterest": 2.0
+        },
+        "PE": {
+          "openInterest": 15561.0
+        }
+      },
+      {
+        "strikePrice": 21450.0,
+        "CE": {
+          "openInterest": 1.0
+        },
+        "PE": {
+          "openInterest": 2057.0
+        }
+      },
+      {
+        "strikePrice": 21500.0,
+        "CE": {
+          "openInterest": 19.0
+        },
+        "PE": {
+          "openInterest": 62682.0
+        }
+      },
+      {
+        "strikePrice": 21550.0,
+        "CE": {
+          "openInterest": 1.0
+        },
+        "PE": {
+          "openInterest": 1793.0
+        }
+      },
+      {
+        "strikePrice": 21600.0,
+        "CE": {
+          "openInterest": 1.0
+        },
+        "PE": {
+          "openInterest": 12939.0
+        }
+      },
+      {
+        "strikePrice": 21650.0,
+        "CE": {
+          "openInterest": 1.0
+        },
+        "PE": {
+          "openInterest": 2509.0
+        }
+      },
+      {
+        "strikePrice": 21700.0,
+        "CE": {
+          "openInterest": 1.0
+        },
+        "PE": {
+          "openInterest": 15208.0
+        }
+      },
+      {
+        "strikePrice": 21750.0,
+        "CE": {
+          "openInterest": 1.0
+        },
+        "PE": {
+          "openInterest": 4892.0
+        }
+      },
+      {
+        "strikePrice": 21800.0,
+        "CE": {
+          "openInterest": 1.0
+        },
+        "PE": {
+          "openInterest": 39598.0
+        }
+      },
+      {
+        "strikePrice": 21850.0,
+        "CE": {
+          "openInterest": 1.0
+        },
+        "PE": {
+          "openInterest": 2871.0
+        }
+      },
+      {
+        "strikePrice": 21900.0,
+        "CE": {
+          "openInterest": 3.0
+        },
+        "PE": {
+          "openInterest": 15991.0
+        }
+      },
+      {
+        "strikePrice": 21950.0,
+        "CE": {
+          "openInterest": 1.0
+        },
+        "PE": {
+          "openInterest": 5157.0
+        }
+      },
+      {
+        "strikePrice": 22000.0,
+        "CE": {
+          "openInterest": 796.0
+        },
+        "PE": {
+          "openInterest": 116267.0
+        }
+      },
+      {
+        "strikePrice": 22050.0,
+        "CE": {
+          "openInterest": 2.0
+        },
+        "PE": {
+          "openInterest": 6473.0
+        }
+      },
+      {
+        "strikePrice": 22100.0,
+        "CE": {
+          "openInterest": 7.0
+        },
+        "PE": {
+          "openInterest": 33806.0
+        }
+      },
+      {
+        "strikePrice": 22150.0,
+        "CE": {
+          "openInterest": 4.0
+        },
+        "PE": {
+          "openInterest": 13425.0
+        }
+      },
+      {
+        "strikePrice": 22200.0,
+        "CE": {
+          "openInterest": 35.0
+        },
+        "PE": {
+          "openInterest": 39224.0
+        }
+      },
+      {
+        "strikePrice": 22250.0,
+        "CE": {
+          "openInterest": 36.0
+        },
+        "PE": {
+          "openInterest": 19446.0
+        }
+      },
+      {
+        "strikePrice": 22300.0,
+        "CE": {
+          "openInterest": 46.0
+        },
+        "PE": {
+          "openInterest": 79930.0
+        }
+      },
+      {
+        "strikePrice": 22350.0,
+        "CE": {
+          "openInterest": 71.0
+        },
+        "PE": {
+          "openInterest": 15963.0
+        }
+      },
+      {
+        "strikePrice": 22400.0,
+        "CE": {
+          "openInterest": 138.0
+        },
+        "PE": {
+          "openInterest": 59648.0
+        }
+      },
+      {
+        "strikePrice": 22450.0,
+        "CE": {
+          "openInterest": 37.0
+        },
+        "PE": {
+          "openInterest": 16587.0
+        }
+      },
+      {
+        "strikePrice": 22500.0,
+        "CE": {
+          "openInterest": 4066.0
+        },
+        "PE": {
+          "openInterest": 98672.0
+        }
+      },
+      {
+        "strikePrice": 22550.0,
+        "CE": {
+          "openInterest": 308.0
+        },
+        "PE": {
+          "openInterest": 19866.0
+        }
+      },
+      {
+        "strikePrice": 22600.0,
+        "CE": {
+          "openInterest": 857.0
+        },
+        "PE": {
+          "openInterest": 58443.0
+        }
+      },
+      {
+        "strikePrice": 22650.0,
+        "CE": {
+          "openInterest": 646.0
+        },
+        "PE": {
+          "openInterest": 24746.0
+        }
+      },
+      {
+        "strikePrice": 22700.0,
+        "CE": {
+          "openInterest": 1923.0
+        },
+        "PE": {
+          "openInterest": 67035.0
+        }
+      },
+      {
+        "strikePrice": 22750.0,
+        "CE": {
+          "openInterest": 786.0
+        },
+        "PE": {
+          "openInterest": 38600.0
+        }
+      },
+      {
+        "strikePrice": 22800.0,
+        "CE": {
+          "openInterest": 3706.0
+        },
+        "PE": {
+          "openInterest": 69304.0
+        }
+      },
+      {
+        "strikePrice": 22850.0,
+        "CE": {
+          "openInterest": 1193.0
+        },
+        "PE": {
+          "openInterest": 38069.0
+        }
+      },
+      {
+        "strikePrice": 22900.0,
+        "CE": {
+          "openInterest": 4957.0
+        },
+        "PE": {
+          "openInterest": 65689.0
+        }
+      },
+      {
+        "strikePrice": 22950.0,
+        "CE": {
+          "openInterest": 2637.0
+        },
+        "PE": {
+          "openInterest": 33101.0
+        }
+      },
+      {
+        "strikePrice": 23000.0,
+        "CE": {
+          "openInterest": 22763.0
+        },
+        "PE": {
+          "openInterest": 141092.0
+        }
+      },
+      {
+        "strikePrice": 23050.0,
+        "CE": {
+          "openInterest": 7539.0
+        },
+        "PE": {
+          "openInterest": 45694.0
+        }
+      },
+      {
+        "strikePrice": 23100.0,
+        "CE": {
+          "openInterest": 32566.0
+        },
+        "PE": {
+          "openInterest": 129400.0
+        }
+      },
+      {
+        "strikePrice": 23150.0,
+        "CE": {
+          "openInterest": 24959.0
+        },
+        "PE": {
+          "openInterest": 74063.0
+        }
+      },
+      {
+        "strikePrice": 23200.0,
+        "CE": {
+          "openInterest": 96799.0
+        },
+        "PE": {
+          "openInterest": 143102.0
+        }
+      },
+      {
+        "strikePrice": 23250.0,
+        "CE": {
+          "openInterest": 54668.0
+        },
+        "PE": {
+          "openInterest": 55198.0
+        }
+      },
+      {
+        "strikePrice": 23300.0,
+        "CE": {
+          "openInterest": 113467.0
+        },
+        "PE": {
+          "openInterest": 84357.0
+        }
+      },
+      {
+        "strikePrice": 23350.0,
+        "CE": {
+          "openInterest": 45124.0
+        },
+        "PE": {
+          "openInterest": 19833.0
+        }
+      },
+      {
+        "strikePrice": 23400.0,
+        "CE": {
+          "openInterest": 93147.0
+        },
+        "PE": {
+          "openInterest": 36054.0
+        }
+      },
+      {
+        "strikePrice": 23450.0,
+        "CE": {
+          "openInterest": 35333.0
+        },
+        "PE": {
+          "openInterest": 6777.0
+        }
+      },
+      {
+        "strikePrice": 23500.0,
+        "CE": {
+          "openInterest": 109237.0
+        },
+        "PE": {
+          "openInterest": 33896.0
+        }
+      },
+      {
+        "strikePrice": 23550.0,
+        "CE": {
+          "openInterest": 29480.0
+        },
+        "PE": {
+          "openInterest": 2933.0
+        }
+      },
+      {
+        "strikePrice": 23600.0,
+        "CE": {
+          "openInterest": 86706.0
+        },
+        "PE": {
+          "openInterest": 10217.0
+        }
+      },
+      {
+        "strikePrice": 23650.0,
+        "CE": {
+          "openInterest": 28388.0
+        },
+        "PE": {
+          "openInterest": 3219.0
+        }
+      },
+      {
+        "strikePrice": 23700.0,
+        "CE": {
+          "openInterest": 93270.0
+        },
+        "PE": {
+          "openInterest": 7455.0
+        }
+      },
+      {
+        "strikePrice": 23750.0,
+        "CE": {
+          "openInterest": 27734.0
+        },
+        "PE": {
+          "openInterest": 974.0
+        }
+      },
+      {
+        "strikePrice": 23800.0,
+        "CE": {
+          "openInterest": 80299.0
+        },
+        "PE": {
+          "openInterest": 6119.0
+        }
+      },
+      {
+        "strikePrice": 23850.0,
+        "CE": {
+          "openInterest": 28040.0
+        },
+        "PE": {
+          "openInterest": 492.0
+        }
+      },
+      {
+        "strikePrice": 23900.0,
+        "CE": {
+          "openInterest": 54503.0
+        },
+        "PE": {
+          "openInterest": 2855.0
+        }
+      },
+      {
+        "strikePrice": 23950.0,
+        "CE": {
+          "openInterest": 20328.0
+        },
+        "PE": {
+          "openInterest": 329.0
+        }
+      },
+      {
+        "strikePrice": 24000.0,
+        "CE": {
+          "openInterest": 128872.0
+        },
+        "PE": {
+          "openInterest": 9420.0
+        }
+      },
+      {
+        "strikePrice": 24050.0,
+        "CE": {
+          "openInterest": 26274.0
+        },
+        "PE": {
+          "openInterest": 104.0
+        }
+      },
+      {
+        "strikePrice": 24100.0,
+        "CE": {
+          "openInterest": 50233.0
+        },
+        "PE": {
+          "openInterest": 722.0
+        }
+      },
+      {
+        "strikePrice": 24150.0,
+        "CE": {
+          "openInterest": 15125.0
+        },
+        "PE": {
+          "openInterest": 38.0
+        }
+      },
+      {
+        "strikePrice": 24200.0,
+        "CE": {
+          "openInterest": 56703.0
+        },
+        "PE": {
+          "openInterest": 1006.0
+        }
+      },
+      {
+        "strikePrice": 24250.0,
+        "CE": {
+          "openInterest": 17908.0
+        },
+        "PE": {
+          "openInterest": 39.0
+        }
+      },
+      {
+        "strikePrice": 24300.0,
+        "CE": {
+          "openInterest": 40130.0
+        },
+        "PE": {
+          "openInterest": 519.0
+        }
+      },
+      {
+        "strikePrice": 24350.0,
+        "CE": {
+          "openInterest": 9776.0
+        },
+        "PE": {
+          "openInterest": 50.0
+        }
+      },
+      {
+        "strikePrice": 24400.0,
+        "CE": {
+          "openInterest": 30119.0
+        },
+        "PE": {
+          "openInterest": 477.0
+        }
+      },
+      {
+        "strikePrice": 24450.0,
+        "CE": {
+          "openInterest": 12561.0
+        },
+        "PE": {
+          "openInterest": 26.0
+        }
+      },
+      {
+        "strikePrice": 24500.0,
+        "CE": {
+          "openInterest": 101252.0
+        },
+        "PE": {
+          "openInterest": 2791.0
+        }
+      },
+      {
+        "strikePrice": 24550.0,
+        "CE": {
+          "openInterest": 8593.0
+        },
+        "PE": {
+          "openInterest": 2.0
+        }
+      },
+      {
+        "strikePrice": 24600.0,
+        "CE": {
+          "openInterest": 50398.0
+        },
+        "PE": {
+          "openInterest": 98.0
+        }
+      },
+      {
+        "strikePrice": 24650.0,
+        "CE": {
+          "openInterest": 6603.0
+        },
+        "PE": {
+          "openInterest": 19.0
+        }
+      },
+      {
+        "strikePrice": 24700.0,
+        "CE": {
+          "openInterest": 39898.0
+        },
+        "PE": {
+          "openInterest": 53.0
+        }
+      },
+      {
+        "strikePrice": 24750.0,
+        "CE": {
+          "openInterest": 12419.0
+        },
+        "PE": {
+          "openInterest": 1.0
+        }
+      },
+      {
+        "strikePrice": 24800.0,
+        "CE": {
+          "openInterest": 33170.0
+        },
+        "PE": {
+          "openInterest": 730.0
+        }
+      },
+      {
+        "strikePrice": 24850.0,
+        "CE": {
+          "openInterest": 6253.0
+        },
+        "PE": {
+          "openInterest": 1.0
+        }
+      },
+      {
+        "strikePrice": 24900.0,
+        "CE": {
+          "openInterest": 30978.0
+        },
+        "PE": {
+          "openInterest": 136.0
+        }
+      },
+      {
+        "strikePrice": 24950.0,
+        "CE": {
+          "openInterest": 4771.0
+        },
+        "PE": {
+          "openInterest": 2.0
+        }
+      },
+      {
+        "strikePrice": 25000.0,
+        "CE": {
+          "openInterest": 70081.0
+        },
+        "PE": {
+          "openInterest": 2306.0
+        }
+      },
+      {
+        "strikePrice": 25050.0,
+        "CE": {
+          "openInterest": 8962.0
+        },
+        "PE": {
+          "openInterest": 9.0
+        }
+      },
+      {
+        "strikePrice": 25100.0,
+        "CE": {
+          "openInterest": 21393.0
+        },
+        "PE": {
+          "openInterest": 7.0
+        }
+      },
+      {
+        "strikePrice": 25150.0,
+        "CE": {
+          "openInterest": 4612.0
+        },
+        "PE": {
+          "openInterest": 4.0
+        }
+      },
+      {
+        "strikePrice": 25200.0,
+        "CE": {
+          "openInterest": 15462.0
+        },
+        "PE": {
+          "openInterest": 93.0
+        }
+      },
+      {
+        "strikePrice": 25250.0,
+        "CE": {
+          "openInterest": 4613.0
+        },
+        "PE": {
+          "openInterest": 1.0
+        }
+      },
+      {
+        "strikePrice": 25300.0,
+        "CE": {
+          "openInterest": 4267.0
+        },
+        "PE": {
+          "openInterest": 5.0
+        }
+      },
+      {
+        "strikePrice": 25350.0,
+        "CE": {
+          "openInterest": 1261.0
+        },
+        "PE": {
+          "openInterest": 9.0
+        }
+      },
+      {
+        "strikePrice": 25400.0,
+        "CE": {
+          "openInterest": 1566.0
+        },
+        "PE": {
+          "openInterest": 36.0
+        }
+      },
+      {
+        "strikePrice": 25450.0,
+        "CE": {
+          "openInterest": 513.0
+        },
+        "PE": {
+          "openInterest": 1.0
+        }
+      },
+      {
+        "strikePrice": 25500.0,
+        "CE": {
+          "openInterest": 30181.0
+        },
+        "PE": {
+          "openInterest": 458.0
+        }
+      },
+      {
+        "strikePrice": 25550.0,
+        "CE": {
+          "openInterest": 455.0
+        },
+        "PE": {
+          "openInterest": 8.0
+        }
+      },
+      {
+        "strikePrice": 25600.0,
+        "CE": {
+          "openInterest": 2816.0
+        },
+        "PE": {
+          "openInterest": 26.0
+        }
+      },
+      {
+        "strikePrice": 25650.0,
+        "CE": {
+          "openInterest": 335.0
+        },
+        "PE": {
+          "openInterest": 9.0
+        }
+      },
+      {
+        "strikePrice": 25700.0,
+        "CE": {
+          "openInterest": 2267.0
+        },
+        "PE": {
+          "openInterest": 3.0
+        }
+      },
+      {
+        "strikePrice": 25750.0,
+        "CE": {
+          "openInterest": 388.0
+        },
+        "PE": {
+          "openInterest": 1.0
+        }
+      },
+      {
+        "strikePrice": 25800.0,
+        "CE": {
+          "openInterest": 1848.0
+        },
+        "PE": {
+          "openInterest": 4.0
+        }
+      },
+      {
+        "strikePrice": 25850.0,
+        "CE": {
+          "openInterest": 356.0
+        },
+        "PE": {
+          "openInterest": 4.0
+        }
+      },
+      {
+        "strikePrice": 25900.0,
+        "CE": {
+          "openInterest": 2355.0
+        },
+        "PE": {
+          "openInterest": 1.0
+        }
+      },
+      {
+        "strikePrice": 25950.0,
+        "CE": {
+          "openInterest": 382.0
+        },
+        "PE": {
+          "openInterest": 1.0
+        }
+      },
+      {
+        "strikePrice": 26000.0,
+        "CE": {
+          "openInterest": 10289.0
+        },
+        "PE": {
+          "openInterest": 590.0
+        }
+      },
+      {
+        "strikePrice": 26050.0,
+        "CE": {
+          "openInterest": 865.0
+        },
+        "PE": {
+          "openInterest": 1.0
+        }
+      },
+      {
+        "strikePrice": 26100.0,
+        "CE": {
+          "openInterest": 7604.0
+        },
+        "PE": {
+          "openInterest": 27.0
+        }
+      }
+    ]
+  }
+}

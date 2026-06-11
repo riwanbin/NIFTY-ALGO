@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NIFTY Trading Analysis Dashboard</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="index.css">
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <h1>NIFTY ALGO</h1>
+      <div class="subtitle">Daily Trading Terminal</div>
+    </div>
+    
+    <ul class="nav-links">
+      <li class="active" data-tab="checklist">
+        <span class="nav-icon">📋</span> Morning Checklist
+      </li>
+      <li data-tab="global">
+        <span class="nav-icon">🌍</span> Global Markets
+      </li>
+      <li data-tab="nse">
+        <span class="nav-icon">🏦</span> NSE Data
+      </li>
+      <li data-tab="bias">
+        <span class="nav-icon">🎯</span> Market Bias
+      </li>
+      <li data-tab="plan">
+        <span class="nav-icon">📝</span> Trading Plan
+      </li>
+      
+      <div class="nav-divider"></div>
+      
+      <li data-tab="journal">
+        <span class="nav-icon">📓</span> Trade Journal
+      </li>
+      <li data-tab="dashboard">
+        <span class="nav-icon">📊</span> Analytics Dashboard
+      </li>
+    </ul>
+    
+    <div class="sidebar-footer">
+      <button id="btn-settings" class="btn-settings">
+        <span>⚙️</span> Settings & API
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Wrapper -->
+  <div class="main-wrapper">
+    
+    <!-- Header -->
+    <header class="top-header">
+      <div class="header-left">
+        <div class="page-title">Market Overview</div>
+        <div class="market-status">
+          <div id="market-status-dot" class="status-dot"></div>
+          <span id="market-status-text">Market Closed</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="header-date" id="header-date">Thursday, June 11, 2026</div>
+        <div class="header-clock" id="header-clock">08:30:00 AM</div>
+      </div>
+    </header>
+
+    <!-- Content Area -->
+    <main class="content-area">
+      
+      <!-- API Key Warning Banner -->
+      <div id="api-key-banner" class="setup-banner hidden">
+        <div class="banner-text">
+          <strong>Missing API Key:</strong> Global market data requires a free Twelve Data API key.
+        </div>
+        <button class="btn btn-sm btn-outline" onclick="document.getElementById('settings-modal').classList.add('active')">Configure Now</button>
+      </div>
+
+      <!-- TAB: Checklist -->
+      <div id="tab-checklist" class="tab-content active">
+        <div class="section-header">
+          <h2 class="section-title">Morning Workflow (8:30 AM - 9:00 AM)</h2>
+        </div>
+        
+        <div class="card" style="max-width: 600px;">
+          <h3 class="mb-md text-secondary">Step 1: Global Sentiment</h3>
+          <div class="checklist-item" data-id="chk1">
+            <div class="check-box"></div>
+            <div class="checklist-time">--:--</div>
+            <div class="checklist-label">Check GIFT Nifty</div>
+          </div>
+          <div class="checklist-item" data-id="chk2">
+            <div class="check-box"></div>
+            <div class="checklist-time">--:--</div>
+            <div class="checklist-label">Check US Markets (S&P 500, Nasdaq)</div>
+          </div>
+          <div class="checklist-item" data-id="chk3">
+            <div class="check-box"></div>
+            <div class="checklist-time">--:--</div>
+            <div class="checklist-label">Check Asian Markets (Nikkei, Hang Seng)</div>
+          </div>
+          
+          <h3 class="mb-md mt-lg text-secondary">Step 2: Domestic & Institutional</h3>
+          <div class="checklist-item" data-id="chk4">
+            <div class="check-box"></div>
+            <div class="checklist-time">--:--</div>
+            <div class="checklist-label">Check Economic Calendar & News</div>
+          </div>
+          <div class="checklist-item" data-id="chk5">
+            <div class="check-box"></div>
+            <div class="checklist-time">--:--</div>
+            <div class="checklist-label">Check FII & DII Data</div>
+          </div>
+          <div class="checklist-item" data-id="chk6">
+            <div class="check-box"></div>
+            <div class="checklist-time">--:--</div>
+            <div class="checklist-label">Check India VIX</div>
+          </div>
+          
+          <h3 class="mb-md mt-lg text-secondary">Step 3: Technicals</h3>
+          <div class="checklist-item" data-id="chk7">
+            <div class="check-box"></div>
+            <div class="checklist-time">--:--</div>
+            <div class="checklist-label">Analyze NIFTY Chart & EMAs</div>
+          </div>
+          <div class="checklist-item" data-id="chk8">
+            <div class="check-box"></div>
+            <div class="checklist-time">--:--</div>
+            <div class="checklist-label">Mark Support & Resistance Levels</div>
+          </div>
+          <div class="checklist-item" data-id="chk9">
+            <div class="check-box"></div>
+            <div class="checklist-time">--:--</div>
+            <div class="checklist-label">Analyze Option Chain & PCR</div>
+          </div>
+          
+          <h3 class="mb-md mt-lg text-secondary">Step 4: Execution</h3>
+          <div class="checklist-item" data-id="chk10">
+            <div class="check-box"></div>
+            <div class="checklist-time">--:--</div>
+            <div class="checklist-label">Calculate Market Bias</div>
+          </div>
+          <div class="checklist-item" data-id="chk11">
+            <div class="check-box"></div>
+            <div class="checklist-time">--:--</div>
+            <div class="checklist-label">Create Trading Plan</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: Global Markets -->
+      <div id="tab-global" class="tab-content">
+        <div class="section-header">
+          <h2 class="section-title">Global Markets Overview</h2>
+          <div class="section-actions">
+            <button id="btn-fetch-global" class="btn btn-primary">🔄 Fetch Latest Data</button>
+          </div>
+        </div>
+        
+        <h3 class="mb-md text-secondary">US Markets</h3>
+        <div class="grid-3 mb-lg">
+          <div id="tile-sp500" class="stat-tile neutral">
+            <div class="stat-label">S&P 500</div>
+            <div class="flex-between">
+              <div id="val-sp500" class="stat-value">—</div>
+              <div id="chg-sp500" class="stat-change">—</div>
+            </div>
+          </div>
+          <div id="tile-nasdaq" class="stat-tile neutral">
+            <div class="stat-label">NASDAQ</div>
+            <div class="flex-between">
+              <div id="val-nasdaq" class="stat-value">—</div>
+              <div id="chg-nasdaq" class="stat-change">—</div>
+            </div>
+          </div>
+          <div id="tile-dow" class="stat-tile neutral">
+            <div class="stat-label">DOW JONES</div>
+            <div class="flex-between">
+              <div id="val-dow" class="stat-value">—</div>
+              <div id="chg-dow" class="stat-change">—</div>
+            </div>
+          </div>
+        </div>
+        
+        <h3 class="mb-md text-secondary">Asian Markets & Commodities</h3>
+        <div class="grid-4">
+          <div id="tile-nikkei" class="stat-tile neutral">
+            <div class="stat-label">NIKKEI 225</div>
+            <div class="flex-between">
+              <div id="val-nikkei" class="stat-value">—</div>
+              <div id="chg-nikkei" class="stat-change">—</div>
+            </div>
+          </div>
+          <div id="tile-hangseng" class="stat-tile neutral">
+            <div class="stat-label">HANG SENG</div>
+            <div class="flex-between">
+              <div id="val-hangseng" class="stat-value">—</div>
+              <div id="chg-hangseng" class="stat-change">—</div>
+            </div>
+          </div>
+          <div id="tile-crude" class="stat-tile neutral">
+            <div class="stat-label">WTI CRUDE</div>
+            <div class="flex-between">
+              <div id="val-crude" class="stat-value">—</div>
+              <div id="chg-crude" class="stat-change">—</div>
+            </div>
+          </div>
+          <div id="tile-usdinr" class="stat-tile neutral">
+            <div class="stat-label">USD/INR</div>
+            <div class="flex-between">
+              <div id="val-usdinr" class="stat-value">—</div>
+              <div id="chg-usdinr" class="stat-change">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: NSE Data -->
+      <div id="tab-nse" class="tab-content">
+        <div class="section-header">
+          <h2 class="section-title">NSE Market Data</h2>
+          <div class="section-actions">
+            <button id="btn-fetch-nse" class="btn btn-primary">🔄 Fetch NSE Data</button>
+          </div>
+        </div>
+        
+        <!-- Manual Paste Fallback -->
+        <div id="nse-manual-section" class="card mb-lg hidden" style="border-color: var(--amber);">
+          <div class="card-title text-amber mb-sm">⚠️ NSE Auto-fetch Blocked</div>
+          <p class="text-secondary mb-md" style="font-size: 0.8rem;">NSE actively blocks automated requests. Copy the JSON from the Option Chain page and paste it below.</p>
+          <textarea id="nse-manual-paste" class="form-textarea mono" placeholder='{"records": {"data": [...]}}'></textarea>
+        </div>
+        
+        <div class="grid-3 mb-lg">
+          <!-- Trend -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">📉 NIFTY Technicals</div>
+              <div id="nifty-trend-badge" class="card-badge badge-amber">WAITING</div>
+            </div>
+            <div class="flex-between mb-sm" style="align-items: center;">
+              <span class="text-secondary">Spot Price</span>
+              <input type="number" id="nifty-spot-input" class="form-input mono" style="width: 120px; text-align: right; padding: 4px 8px;" placeholder="—">
+            </div>
+            <div class="flex-between mb-sm" style="align-items: center;">
+              <span class="text-secondary">20 EMA</span>
+              <input type="number" id="nifty-ema20-input" class="form-input mono" style="width: 120px; text-align: right; padding: 4px 8px;" placeholder="—">
+            </div>
+            <div class="flex-between mb-sm" style="align-items: center;">
+              <span class="text-secondary">50 EMA</span>
+              <input type="number" id="nifty-ema50-input" class="form-input mono" style="width: 120px; text-align: right; padding: 4px 8px;" placeholder="—">
+            </div>
+            <div class="flex-between" style="align-items: center;">
+              <span class="text-secondary">200 EMA</span>
+              <input type="number" id="nifty-ema200-input" class="form-input mono" style="width: 120px; text-align: right; padding: 4px 8px;" placeholder="—">
+            </div>
+          </div>
+          
+          <!-- Option Chain -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">⛓️ Option Chain</div>
+              <div id="oc-pcr-badge" class="card-badge badge-amber">WAITING</div>
+            </div>
+            <div class="flex-between mb-sm">
+              <span class="text-secondary">Highest Call OI (Res)</span>
+              <span id="oc-highest-call" class="mono text-red" style="font-weight: 600;">—</span>
+            </div>
+            <div class="flex-between mb-sm">
+              <span class="text-secondary">Highest Put OI (Sup)</span>
+              <span id="oc-highest-put" class="mono text-green" style="font-weight: 600;">—</span>
+            </div>
+            <div class="flex-between">
+              <span class="text-secondary">PCR</span>
+              <span id="oc-pcr" class="mono text-blue" style="font-weight: 600; font-size: 1.2rem;">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: Market Bias -->
+      <div id="tab-bias" class="tab-content">
+        <div class="section-header">
+          <h2 class="section-title">Final Market Bias</h2>
+          <div class="section-actions">
+            <button id="btn-calculate-bias" class="btn btn-success">⚙️ Calculate Bias</button>
+          </div>
+        </div>
+        
+        <div class="score-display mb-lg">
+          <div id="final-score-value" class="score-number text-blue">0.0</div>
+          <div class="score-bar-container">
+            <div class="flex-between mb-sm">
+              <span class="text-secondary" style="font-size: 0.8rem;">Bearish (-10)</span>
+              <span class="text-secondary" style="font-size: 0.8rem;">Bullish (+10)</span>
+            </div>
+            <div class="score-bar">
+              <div id="final-score-bar" class="score-bar-fill" style="width: 50%; background: var(--amber);"></div>
+            </div>
+          </div>
+          <div id="final-bias-label" class="bias-label bias-neutral">NEUTRAL</div>
+        </div>
+        
+        <h3 class="mb-md text-secondary">Factor Breakdown</h3>
+        <div id="factor-score-grid" class="factor-grid">
+          <div class="empty-state w-full" style="grid-column: 1 / -1; padding: 20px;">
+            <div class="empty-desc">Click calculate to generate factor breakdown.</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- TAB: Trading Plan -->
+      <div id="tab-plan" class="tab-content">
+        <div class="section-header">
+          <h2 class="section-title">Trading Plan</h2>
+          <button class="btn btn-primary">💾 Save Plan</button>
+        </div>
+        
+        <div class="grid-2">
+          <div class="card" style="border-top: 3px solid var(--green);">
+            <div class="card-title text-green mb-md">Bullish Scenario</div>
+            <div class="form-group">
+              <label class="form-label">Entry Condition</label>
+              <input type="text" class="form-input" placeholder="e.g. Above PDH or 25100">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label text-red">Stop Loss</label>
+                <input type="number" class="form-input mono" placeholder="Points or Level">
+              </div>
+              <div class="form-group">
+                <label class="form-label text-green">Target</label>
+                <input type="number" class="form-input mono" placeholder="Points or Level">
+              </div>
+            </div>
+          </div>
+          
+          <div class="card" style="border-top: 3px solid var(--red);">
+            <div class="card-title text-red mb-md">Bearish Scenario</div>
+            <div class="form-group">
+              <label class="form-label">Entry Condition</label>
+              <input type="text" class="form-input" placeholder="e.g. Below PDL or 24900">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label text-red">Stop Loss</label>
+                <input type="number" class="form-input mono" placeholder="Points or Level">
+              </div>
+              <div class="form-group">
+                <label class="form-label text-green">Target</label>
+                <input type="number" class="form-input mono" placeholder="Points or Level">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: Trade Journal -->
+      <div id="tab-journal" class="tab-content">
+        <div class="section-header">
+          <h2 class="section-title">Trade Journal</h2>
+          <div class="section-actions">
+            <button id="btn-export-csv" class="btn btn-outline">📥 Export CSV</button>
+            <button id="btn-add-trade" class="btn btn-primary">➕ Add Trade (Demo)</button>
+          </div>
+        </div>
+        
+        <div class="card" style="padding: 0; overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Setup</th>
+                <th>Dir</th>
+                <th>Entry</th>
+                <th>SL</th>
+                <th>Exit</th>
+                <th>Result</th>
+                <th>PnL (₹)</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="trade-journal-body">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB: Dashboard -->
+      <div id="tab-dashboard" class="tab-content">
+        <div class="section-header">
+          <h2 class="section-title">Performance Analytics</h2>
+        </div>
+        
+        <div class="grid-4 mb-lg">
+          <div class="stat-tile neutral">
+            <div class="stat-label">Total Trades</div>
+            <div id="dash-total-trades" class="stat-value mono">0</div>
+          </div>
+          <div class="stat-tile neutral">
+            <div class="stat-label">Win Rate</div>
+            <div id="dash-win-rate" class="stat-value mono">0.0%</div>
+          </div>
+          <div id="tile-total-pnl" class="stat-tile neutral">
+            <div class="stat-label">Net P&L</div>
+            <div id="dash-total-pnl" class="stat-value mono">₹0</div>
+          </div>
+          <div class="stat-tile neutral">
+            <div class="stat-label">Profit Factor</div>
+            <div id="dash-profit-factor" class="stat-value mono">0.00</div>
+          </div>
+        </div>
+        
+        <div class="grid-2 mb-lg">
+          <div class="card">
+            <div class="card-title">📈 Equity Curve</div>
+            <div class="chart-container">
+              <canvas id="chart-equity"></canvas>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">🏆 Win/Loss Distribution</div>
+            <div class="chart-container">
+              <canvas id="chart-winloss"></canvas>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card mb-lg">
+          <div class="card-title">🧩 Setup Performance</div>
+          <div class="chart-container chart-container-sm">
+            <canvas id="chart-setups"></canvas>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="settings-modal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">⚙️ Settings</div>
+        <button id="close-settings" class="modal-close">×</button>
+      </div>
+      
+      <div class="form-group mb-lg">
+        <label class="form-label">Twelve Data API Key</label>
+        <input type="text" id="api-key-input" class="form-input mono" placeholder="Enter your free API key...">
+        <div class="text-muted" style="font-size: 0.75rem; margin-top: 6px;">
+          Get a free key at <a href="https://twelvedata.com" target="_blank" style="color: var(--blue-light);">twelvedata.com</a> (800 req/day).
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button id="save-settings" class="btn btn-primary">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS Modules -->
+  <script src="js/storage.js"></script>
+  <script src="js/scoring.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/export.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
