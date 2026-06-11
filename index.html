@@ -290,6 +290,46 @@
 
       <!-- TAB: Market Bias -->
       <div id="tab-bias" class="tab-content">
+        <!-- Manual Overrides for Scoring -->
+        <div class="card mb-md">
+          <div class="card-header">
+            <div class="card-title">📝 Bias Scoring Overrides (Optional)</div>
+            <span class="text-secondary" style="font-size: 0.8rem;">Fill these if auto-fetch fails</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+            <div>
+              <label class="text-secondary" style="font-size: 0.8rem;">News Impact</label>
+              <select id="news-impact" class="form-input" style="width: 100%; margin-top: 5px;">
+                <option value="none">Neutral / None</option>
+                <option value="high-bullish">High Bullish</option>
+                <option value="medium-bullish">Medium Bullish</option>
+                <option value="medium-bearish">Medium Bearish</option>
+                <option value="high-bearish">High Bearish</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-secondary" style="font-size: 0.8rem;">FII Net (Cr)</label>
+              <input type="number" id="fii-net" class="form-input mono" style="width: 100%; margin-top: 5px;" placeholder="e.g. 1500">
+            </div>
+            <div>
+              <label class="text-secondary" style="font-size: 0.8rem;">DII Net (Cr)</label>
+              <input type="number" id="dii-net" class="form-input mono" style="width: 100%; margin-top: 5px;" placeholder="e.g. -500">
+            </div>
+            <div>
+              <label class="text-secondary" style="font-size: 0.8rem;">India VIX</label>
+              <input type="number" id="manual-vix" class="form-input mono" style="width: 100%; margin-top: 5px;" placeholder="e.g. 14.5">
+            </div>
+            <div>
+              <label class="text-secondary" style="font-size: 0.8rem;">NIFTY Advances</label>
+              <input type="number" id="advances" class="form-input mono" style="width: 100%; margin-top: 5px;" placeholder="e.g. 35">
+            </div>
+            <div>
+              <label class="text-secondary" style="font-size: 0.8rem;">NIFTY Declines</label>
+              <input type="number" id="declines" class="form-input mono" style="width: 100%; margin-top: 5px;" placeholder="e.g. 15">
+            </div>
+          </div>
+        </div>
+
         <div class="section-header">
           <h2 class="section-title">Final Market Bias</h2>
           <div class="section-actions">

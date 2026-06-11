@@ -357,20 +357,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // For now we will use dummy inputs or inputs read from DOM, to showcase the engine
     // In production, we'd pull from marketData
     
-    // Read from inputs if auto data is missing
-    const getVal = id => parseFloat(document.getElementById(id)?.value || 0);
+    // Read from manual inputs
+    const getVal = id => {
+      const el = document.getElementById(id);
+      return el && el.value !== '' ? parseFloat(el.value) : null;
+    };
     
     const scores = {
-      global: Scoring.scoreGlobal({ sp500: 1, nasdaq: 1 }), // Dummy for demo
+      global: marketData.global ? Scoring.scoreGlobal(marketData.global) : 0,
       news: Scoring.scoreNews(document.getElementById('news-impact')?.value || 'none'),
-      fii: Scoring.scoreFIIDII(getVal('fii-net'), getVal('dii-net')),
+      fii: Scoring.scoreFIIDII(getVal('fii-net') ?? (marketData.fiiDii ? 1000 : 0), getVal('dii-net') ?? 0),
       dii: 0, // bundled in fii
-      vix: Scoring.scoreVIX(14),
-      trend: Scoring.scoreTrend(getVal('nifty-spot-input'), getVal('nifty-ema20-input'), getVal('nifty-ema50-input'), getVal('nifty-ema200-input')),
-      bankNifty: Scoring.scoreBankNifty(1.2),
-      breadth: Scoring.scoreBreadth(getVal('advances') || 35, getVal('declines') || 15),
-      optionChain: Scoring.scoreOptionChain(getVal('manual-pcr') || 1.1, 25500, 24500, 25000),
-      oi: 1 // Dummy
+      vix: Scoring.scoreVIX(getVal('manual-vix') ?? (marketData.vix ? marketData.vix.lastPrice : 14)),
+      trend: Scoring.scoreTrend(
+        getVal('nifty-spot-input') || (marketData.nifty ? API.parseChange(marketData.nifty.nifty).price : 0),
+        getVal('nifty-ema20-input') || marketData.nifty?.ema20 || 0,
+        getVal('nifty-ema50-input') || marketData.nifty?.ema50 || 0,
+        getVal('nifty-ema200-input') || marketData.nifty?.ema200 || 0
+      ),
+      bankNifty: marketData.nifty?.bankNifty ? Scoring.scoreBankNifty(API.parseChange(marketData.nifty.bankNifty).changePercent) : 0,
+      breadth: Scoring.scoreBreadth(getVal('advances') || 0, getVal('declines') || 0),
+      optionChain: Scoring.scoreOptionChain(
+        getVal('manual-pcr') || marketData.optionChain?.pcr || 1.0, 
+        marketData.optionChain?.highestCallOIValue || 0, 
+        marketData.optionChain?.highestPutOIValue || 0, 
+        marketData.optionChain?.spotPrice || 0
+      ),
+      oi: marketData.optionChain ? 1 : 0 // Simplified for now
     };
     
     const result = Scoring.computeBias(scores);
