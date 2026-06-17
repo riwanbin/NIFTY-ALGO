@@ -223,6 +223,41 @@
             </div>
           </div>
         </div>
+
+        <h3 class="mb-md mt-lg text-secondary">Pre-Market Context</h3>
+        <div class="grid-4">
+          <div id="tile-giftnifty" class="stat-tile neutral">
+            <div class="stat-label">GIFT NIFTY</div>
+            <div class="flex-between">
+              <div id="val-giftnifty" class="stat-value">—</div>
+              <div id="chg-giftnifty" class="stat-change">—</div>
+            </div>
+          </div>
+          <div id="tile-indiavix" class="stat-tile neutral">
+            <div class="stat-label">INDIA VIX</div>
+            <div class="flex-between">
+              <div id="val-indiavix" class="stat-value">—</div>
+              <div id="chg-indiavix" class="stat-change">—</div>
+            </div>
+          </div>
+          <div id="tile-fiidii" class="stat-tile neutral">
+            <div class="stat-label">FII / DII (Net Cr)</div>
+            <div class="flex-between" style="align-items: center; height: 100%; margin-top: 5px;">
+              <div class="text-secondary" style="font-size: 0.85rem;">FII: <span id="val-fii" class="mono text-primary">—</span></div>
+              <div class="text-secondary" style="font-size: 0.85rem;">DII: <span id="val-dii" class="mono text-primary">—</span></div>
+            </div>
+          </div>
+          <div class="stat-tile neutral">
+            <div class="stat-label">NEWS RISK</div>
+            <select id="global-news-impact" class="form-input mt-sm" style="width: 100%; background: var(--bg-input); color: var(--text-primary); border: 1px solid var(--border-medium); border-radius: var(--radius-sm); padding: 4px; margin-top: 8px;">
+              <option value="none">Neutral / None</option>
+              <option value="high-bullish">High Bullish</option>
+              <option value="medium-bullish">Medium Bullish</option>
+              <option value="medium-bearish">Medium Bearish</option>
+              <option value="high-bearish">High Bearish</option>
+            </select>
+          </div>
+        </div>
       </div>
 
       <!-- TAB: NSE Data -->

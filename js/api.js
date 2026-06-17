@@ -123,46 +123,58 @@ const API = {
   // ---------- Aggregated Fetches ----------
 
   /**
-   * Fetch all global market data in optimized batches
-   * Returns: { sp500, nasdaq, dow, nikkei, hangSeng, kospi, crude, usdInr }
+   * Fetch from Yahoo Finance via CORS proxy
+   */
+  async fetchYahooFinance(symbol) {
+    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}`;
+    for (const proxy of this.CORS_PROXIES) {
+      try {
+        const proxyUrl = proxy + encodeURIComponent(url);
+        const res = await fetch(proxyUrl);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.chart && data.chart.result && data.chart.result[0]) {
+            const meta = data.chart.result[0].meta;
+            return {
+              price: meta.regularMarketPrice,
+              previousClose: meta.chartPreviousClose,
+              change: meta.regularMarketPrice - meta.chartPreviousClose,
+              percent_change: ((meta.regularMarketPrice - meta.chartPreviousClose) / meta.chartPreviousClose) * 100,
+              symbol: symbol
+            };
+          }
+        }
+      } catch(e) {
+        continue;
+      }
+    }
+    throw new Error(`Failed to fetch Yahoo Finance data for ${symbol}`);
+  },
+
+  /**
+   * Fetch all global market data using Yahoo Finance (No API Key Required)
+   * Returns: { sp500, nasdaq, dow, nikkei, hangSeng, giftNifty, crude, usdInr }
    */
   async fetchGlobalMarkets() {
-    const apiKey = this._getApiKey();
-    if (!apiKey) throw new Error('API key not set. Go to Settings to configure.');
-
     const cached = Storage.getCached('global_markets');
     if (cached) return cached;
 
     const results = {};
     const errors = [];
 
-    // Batch 1: US Markets (Using ETFs for free tier compatibility)
-    try {
-      const usData = await this.fetchBatchQuotes(['SPY', 'QQQ', 'DIA']);
-      if (usData && !usData.code) {
-        results.sp500 = usData.SPY || usData['SPY'];
-        results.nasdaq = usData.QQQ || usData['QQQ'];
-        results.dow = usData.DIA || usData['DIA'];
-      }
-    } catch (e) {
-      errors.push('US Markets: ' + e.message);
-      // Try individually
-      try { results.sp500 = await this.fetchQuote('SPY'); } catch(e2) { errors.push('S&P: ' + e2.message); }
-      try { results.nasdaq = await this.fetchQuote('QQQ'); } catch(e2) { errors.push('NASDAQ: ' + e2.message); }
-      try { results.dow = await this.fetchQuote('DIA'); } catch(e2) { errors.push('DOW: ' + e2.message); }
-    }
+    // US Markets
+    try { results.sp500 = await this.fetchYahooFinance('^GSPC'); } catch(e) { errors.push('S&P: ' + e.message); }
+    try { results.nasdaq = await this.fetchYahooFinance('^IXIC'); } catch(e) { errors.push('NASDAQ: ' + e.message); }
+    try { results.dow = await this.fetchYahooFinance('^DJI'); } catch(e) { errors.push('DOW: ' + e.message); }
 
-    // Batch 2: Asian Markets (sequential to respect rate limits)
-    await this._delay(300);
-    try { results.nikkei = await this.fetchQuote('EWJ'); } catch(e) { errors.push('Nikkei: ' + e.message); }
-    await this._delay(300);
-    try { results.hangSeng = await this.fetchQuote('EWH'); } catch(e) { errors.push('Hang Seng: ' + e.message); }
+    // Asian Markets
+    try { results.nikkei = await this.fetchYahooFinance('^N225'); } catch(e) { errors.push('Nikkei: ' + e.message); }
+    try { results.hangSeng = await this.fetchYahooFinance('^HSI'); } catch(e) { errors.push('Hang Seng: ' + e.message); }
+    try { results.giftNifty = await this.fetchYahooFinance('^NSEI'); } catch(e) { errors.push('Gift Nifty: ' + e.message); }
 
-    // Batch 3: Commodities & Forex
-    await this._delay(300);
-    try { results.crude = await this.fetchQuote('CL'); } catch(e) { errors.push('Crude: ' + e.message); }
-    await this._delay(300);
-    try { results.usdInr = await this.fetchExchangeRate('USD', 'INR'); } catch(e) { errors.push('USD/INR: ' + e.message); }
+    // Commodities & Forex
+    try { results.crude = await this.fetchYahooFinance('CL=F'); } catch(e) { errors.push('Crude: ' + e.message); }
+    try { results.usdInr = await this.fetchYahooFinance('INR=X'); } catch(e) { errors.push('USD/INR: ' + e.message); }
 
     results.errors = errors;
     results.fetchedAt = new Date().toISOString();
@@ -174,9 +186,6 @@ const API = {
    * Fetch NIFTY technical data (price + EMAs)
    */
   async fetchNiftyTechnicals() {
-    const apiKey = this._getApiKey();
-    if (!apiKey) throw new Error('API key not set');
-
     const cached = Storage.getCached('nifty_technicals');
     if (cached) return cached;
 
@@ -185,38 +194,56 @@ const API = {
 
     // NIFTY 50 price
     try {
-      results.nifty = await this.fetchQuote('NIFTY 50');
+      results.nifty = await this.fetchYahooFinance('^NSEI');
     } catch(e) {
-      try { results.nifty = await this.fetchQuote('NSEI'); } catch(e2) { errors.push('NIFTY: ' + e2.message); }
+      errors.push('NIFTY: ' + e.message);
     }
 
     // Bank NIFTY
     await this._delay(300);
     try {
-      results.bankNifty = await this.fetchQuote('NIFTY BANK');
+      results.bankNifty = await this.fetchYahooFinance('^NSEBANK');
     } catch(e) {
-      try { results.bankNifty = await this.fetchQuote('NSEBANK'); } catch(e2) { errors.push('Bank NIFTY: ' + e2.message); }
+      errors.push('Bank NIFTY: ' + e.message);
     }
 
-    // EMAs (20, 50, 200)
-    const niftySymbol = 'NSEI';
+    // EMAs (20, 50, 200) locally calculated from Yahoo Finance historical data
     await this._delay(300);
     try {
-      const ema20Data = await this.fetchEMA(niftySymbol, 20);
-      results.ema20 = ema20Data?.values?.[0]?.ema ? parseFloat(ema20Data.values[0].ema) : null;
-    } catch(e) { errors.push('EMA20: ' + e.message); }
+      const histUrl = 'https://query1.finance.yahoo.com/v8/finance/chart/^NSEI?interval=1d&range=1y';
+      let histData = null;
+      for (const proxy of this.CORS_PROXIES) {
+        try {
+          const res = await fetch(proxy + encodeURIComponent(histUrl));
+          if (res.ok) {
+            const json = await res.json();
+            if (json.chart && json.chart.result && json.chart.result[0]) {
+              histData = json.chart.result[0].indicators.quote[0].close;
+              // Filter out nulls
+              histData = histData.filter(v => v !== null);
+              break;
+            }
+          }
+        } catch (e) {}
+      }
 
-    await this._delay(300);
-    try {
-      const ema50Data = await this.fetchEMA(niftySymbol, 50);
-      results.ema50 = ema50Data?.values?.[0]?.ema ? parseFloat(ema50Data.values[0].ema) : null;
-    } catch(e) { errors.push('EMA50: ' + e.message); }
-
-    await this._delay(300);
-    try {
-      const ema200Data = await this.fetchEMA(niftySymbol, 200);
-      results.ema200 = ema200Data?.values?.[0]?.ema ? parseFloat(ema200Data.values[0].ema) : null;
-    } catch(e) { errors.push('EMA200: ' + e.message); }
+      if (histData && histData.length >= 200) {
+        const calcEMA = (prices, period) => {
+          const k = 2 / (period + 1);
+          let ema = prices[0];
+          for (let i = 1; i < prices.length; i++) {
+            ema = prices[i] * k + ema * (1 - k);
+          }
+          return ema;
+        };
+        
+        results.ema20 = calcEMA(histData, 20);
+        results.ema50 = calcEMA(histData, 50);
+        results.ema200 = calcEMA(histData, 200);
+      }
+    } catch(e) { 
+      errors.push('EMAs: ' + e.message); 
+    }
 
     results.errors = errors;
     results.fetchedAt = new Date().toISOString();
@@ -385,7 +412,7 @@ const API = {
       change: parseFloat(quoteData.change || 0),
       changePercent: parseFloat(quoteData.percent_change || 0),
       name: quoteData.name || quoteData.symbol || '',
-      previousClose: parseFloat(quoteData.previous_close || 0)
+      previousClose: parseFloat(quoteData.previous_close || quoteData.previousClose || 0)
     };
   }
 };

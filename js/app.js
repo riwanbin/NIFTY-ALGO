@@ -147,17 +147,21 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initial render calls
   renderTradeJournal();
   
+  // Sync News Risk Dropdowns
+  const newsImpact = document.getElementById('news-impact');
+  const globalNewsImpact = document.getElementById('global-news-impact');
+  
+  if (newsImpact && globalNewsImpact) {
+    newsImpact.addEventListener('change', (e) => globalNewsImpact.value = e.target.value);
+    globalNewsImpact.addEventListener('change', (e) => newsImpact.value = e.target.value);
+  }
+  
   // ==========================================
   // Data Fetching & Rendering Logic
   // ==========================================
   
   async function fetchGlobalData() {
     const btn = document.getElementById('btn-fetch-global');
-    if (!Storage.getApiKey()) {
-      showToast('Please set your API key in Settings first', 'error');
-      settingsModal.classList.add('active');
-      return;
-    }
     
     try {
       btn.innerHTML = '<span class="spinner"></span> Fetching...';
@@ -165,11 +169,23 @@ document.addEventListener('DOMContentLoaded', () => {
       
       const data = await API.fetchGlobalMarkets();
       marketData.global = data;
+
+      // Also try fetching VIX and FII/DII for the new Pre-Market Context
+      const vixPromise = API.fetchIndiaVIX();
+      const fiiPromise = API.fetchFIIDII();
+      const [vix, fii] = await Promise.allSettled([vixPromise, fiiPromise]);
+      
+      if (vix.status === 'fulfilled' && vix.value) {
+        marketData.vix = vix.value;
+      }
+      if (fii.status === 'fulfilled' && fii.value) {
+        marketData.fiiDii = fii.value;
+      }
       
       if (data.errors && data.errors.length > 0) {
         showToast('Some markets failed to load: ' + data.errors[0], 'error');
       } else {
-        showToast('Global market data updated', 'success');
+        showToast('Global market & Pre-Market data updated', 'success');
       }
       
       renderGlobalMarkets(data);
@@ -208,6 +224,63 @@ document.addEventListener('DOMContentLoaded', () => {
     updateTile('hangseng', data.hangSeng);
     updateTile('crude', data.crude);
     updateTile('usdinr', data.usdInr);
+    updateTile('giftnifty', data.giftNifty);
+
+    // Update VIX
+    if (marketData.vix) {
+      const vixVal = document.getElementById('val-indiavix');
+      const vixChg = document.getElementById('chg-indiavix');
+      const vixTile = document.getElementById('tile-indiavix');
+      
+      const price = marketData.vix.lastPrice || marketData.vix.last || 0;
+      const chgPct = marketData.vix.percChange || marketData.vix.percentChange || 0;
+      
+      if (vixVal) vixVal.textContent = price.toLocaleString('en-US', {maximumFractionDigits:2});
+      if (vixChg) {
+        const sign = chgPct > 0 ? '+' : '';
+        vixChg.textContent = `${sign}${chgPct.toFixed(2)}%`;
+        vixChg.className = `stat-change ${chgPct >= 0 ? 'positive' : 'negative'}`; // For VIX, positive is bearish context, but coloring can be standard
+      }
+      if (vixTile) vixTile.className = `stat-tile ${chgPct >= 0 ? 'bearish' : 'bullish'}`; // High VIX is bearish
+    }
+
+    // Update FII/DII
+    if (marketData.fiiDii) {
+      const valFii = document.getElementById('val-fii');
+      const valDii = document.getElementById('val-dii');
+      const tileFiiDii = document.getElementById('tile-fiidii');
+      
+      // In actual NSE data, it's an array or specific structure. 
+      // For placeholder, assuming marketData.fiiDii is array or object.
+      // If missing, we show manual values or dummy to indicate it worked.
+      let fiiNet = 0, diiNet = 0;
+      
+      // Attempt to parse actual NSE fiidii structure if available
+      try {
+        if (Array.isArray(marketData.fiiDii)) {
+          const fiiRecord = marketData.fiiDii.find(d => d.category === 'FII' || d.category === 'FPI');
+          const diiRecord = marketData.fiiDii.find(d => d.category === 'DII');
+          if (fiiRecord) fiiNet = parseFloat(fiiRecord.buyValue) - parseFloat(fiiRecord.sellValue);
+          if (diiRecord) diiNet = parseFloat(diiRecord.buyValue) - parseFloat(diiRecord.sellValue);
+        } else if (marketData.fiiDii.fii) {
+          fiiNet = marketData.fiiDii.fii.net || 0;
+          diiNet = marketData.fiiDii.dii?.net || 0;
+        }
+      } catch (e) {}
+
+      if (valFii) {
+        valFii.textContent = fiiNet !== 0 ? fiiNet.toFixed(2) : 'Data N/A';
+        valFii.style.color = fiiNet >= 0 ? 'var(--green-light)' : 'var(--red-light)';
+      }
+      if (valDii) {
+        valDii.textContent = diiNet !== 0 ? diiNet.toFixed(2) : 'Data N/A';
+        valDii.style.color = diiNet >= 0 ? 'var(--green-light)' : 'var(--red-light)';
+      }
+      
+      if (tileFiiDii && fiiNet !== 0) {
+         tileFiiDii.className = `stat-tile ${fiiNet >= 0 ? 'bullish' : 'bearish'}`;
+      }
+    }
   }
   
   async function fetchNseData() {
@@ -217,12 +290,10 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.innerHTML = '<span class="spinner"></span> Fetching...';
       btn.disabled = true;
       
-      // Technicals from Twelve Data
-      if (Storage.getApiKey()) {
-        const techData = await API.fetchNiftyTechnicals();
-        marketData.nifty = techData;
-        renderNiftyTrend(techData);
-      }
+      // Technicals (Spot Price via Yahoo Finance fallback if no API key)
+      const techData = await API.fetchNiftyTechnicals();
+      marketData.nifty = techData;
+      renderNiftyTrend(techData);
       
       // Try fetching from NSE
       const fiiPromise = API.fetchFIIDII();
@@ -253,7 +324,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (manual) {
            showToast('Using manually pasted NSE data', 'info');
            if (manual.fii) renderFIIDII(manual.fii);
-           if (manual.oc) renderOptionChain(manual.oc);
+           if (manual.oc) {
+             const parsedOC = API.parseOptionChain(manual.oc);
+             marketData.optionChain = parsedOC;
+             renderOptionChain(parsedOC);
+           }
         } else {
            showToast('NSE blocked auto-fetch. Please paste data manually below.', 'error');
            document.getElementById('nse-manual-section').classList.remove('hidden');
@@ -365,7 +440,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const scores = {
       global: marketData.global ? Scoring.scoreGlobal(marketData.global) : 0,
-      news: Scoring.scoreNews(document.getElementById('news-impact')?.value || 'none'),
+      news: Scoring.scoreNews(document.getElementById('global-news-impact')?.value || document.getElementById('news-impact')?.value || 'none'),
       fii: Scoring.scoreFIIDII(getVal('fii-net') ?? (marketData.fiiDii ? 1000 : 0), getVal('dii-net') ?? 0),
       dii: 0, // bundled in fii
       vix: Scoring.scoreVIX(getVal('manual-vix') ?? (marketData.vix ? marketData.vix.lastPrice : 14)),
